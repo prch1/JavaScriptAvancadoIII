@@ -1,8 +1,15 @@
+
+var ConnectionFactory = (function ()
+
+{
+
 var stores = ['negociacoes'];
 var version = 1;
 var dbName ='aluraframe';
 
-class ConnectionFactory{
+var connection = null;
+
+return class ConnectionFactory{
 
      constructor(){
          throw new Error('Não é possivel criar instâncias de ConnectionFactory');
@@ -20,6 +27,8 @@ class ConnectionFactory{
              };
 
              openRequest.onsuccess = e => {
+
+               if(!connection) connection = e.target.result;
                  resolve(e.target.result);
              };
 
@@ -42,5 +51,7 @@ class ConnectionFactory{
     }
 
 }
+})();
+
 
 
