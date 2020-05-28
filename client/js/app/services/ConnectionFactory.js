@@ -4,7 +4,7 @@ var ConnectionFactory = (function ()
 {
 
 const stores = ['negociacoes'];
-const version = 1;
+const version = 3;
 const dbName ='aluraframe';
 
 var connection = null;

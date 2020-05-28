@@ -14,7 +14,7 @@
        var openRequest = window.indexedDB.open("aluraframe",1);
 
         openRequest.onupgradeneeded = e => {
-            console.log('Cria ou altera um bando já existente');
+            console.log('Cria ou altera um banco já existente');
 
             let minhaConnection = e.target.result;
            
