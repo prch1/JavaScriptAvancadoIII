@@ -2,6 +2,7 @@ class NegociacaoService{
 
     constructor(){
         this._http = new HttpService();
+     
     }
 
     obterNegociacoesDaSemana(){
@@ -54,4 +55,52 @@ class NegociacaoService{
                      });  
 
         }
+
+        cadastra(negociacao){
+
+            return   ConnectionFactory
+                    .getConnection()
+                    .then(connection => new NegociacaoDao(connection))
+                    .then(dao => dao.adiciona(negociacao))
+                    .then(() => 'Negociação adicionada com sucesso')
+                    .catch(() => { 
+                        throw new Error('Não foi possivel adicionar a negocição')
+                        });  
+                   }
+
+         lista(){
+
+            return   ConnectionFactory
+                    .getConnection()
+                    .then(connection => new NegociacaoDao(connection))
+                    .then(dao => dao.listaTodos())
+                    .catch(erro =>{
+                        throw new Error('Não foi possivel obter as negociações')
+                    })
+         }    
+         
+         apaga(){
+          return  ConnectionFactory
+                .getConnection()
+                .then(connection => new NegociacaoDao(connection))
+                .then(dao => dao.apagaTodos())
+                .then(() => 'Negociações apagadas com sucesso')
+                .catch(erro => {
+                throw new Error('Não foi possivel apagar as negociações')
+            });         
+         } 
+         
+         importa(listaAtual){
+
+        return  this.obterNegociacoesDaSemana()
+                    .then(negociacoes =>
+                            negociacoes.filter(negociacao =>
+                            !listaAtual.some(negociacaoExistente =>
+                                negociacao.isEquals(negociacaoExistente)))
+                                    //JSON.stringify(negociacao) == JSON.stringify(negociacaoExistente)))                    
+                        )
+                    .catch(erro => {
+                                    throw new Error('Não foi possivel buscar negociações para importar');
+                                })
+         }
     }
