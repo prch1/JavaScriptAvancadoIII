@@ -72,7 +72,7 @@ class  NegociacaoController{
      }
 
 
-        importaNegociacoes(){
+   importaNegociacoes(){
        
               this._service
               .importa(this._listaNegociacoes.negociacoes)
@@ -82,18 +82,7 @@ class  NegociacaoController{
                   }))
               .catch(erro => this._mensagem.texto = erro);
             
-           /* Promise.all([
-                    service.obterNegociacoesDaSemana(),
-                    service.obterNegociacoesDaSemanaAnterior(),
-                    service.obterNegociacoesDaSemanaRetrasada()]
-                       ).then(negociacoes => {
-                           negociacoes
-                           .reduce((arrayAchatado,array) => arrayAchatado.concat(array),[])
-                           .forEach(negociacao => this._listaNegociacoes.adiciona(negociacao));
-                              this._mensagem.texto = 'Negociacoes importadas com sucesso';                    
-                       })
-                       .catch(erro => this._mensagem.texto = erro);
-           */
+        
      }
 
     _limpaFormulario()
