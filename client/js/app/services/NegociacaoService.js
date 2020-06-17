@@ -56,6 +56,7 @@ class NegociacaoService{
 
         }
 
+
         cadastra(negociacao){
 
             return   ConnectionFactory
@@ -90,17 +91,19 @@ class NegociacaoService{
             });         
          } 
          
-         importa(listaAtual){
+         async importa(listaAtual) {
 
-        return  this.obterNegociacoesDaSemana()
-                    .then(negociacoes =>
-                            negociacoes.filter(negociacao =>
-                            !listaAtual.some(negociacaoExistente =>
-                                negociacao.isEquals(negociacaoExistente)))
-                                    //JSON.stringify(negociacao) == JSON.stringify(negociacaoExistente)))                    
-                        )
-                    .catch(erro => {
-                                    throw new Error('Não foi possivel buscar negociações para importar');
-                                })
-         }
+            try {
+                 let negociacoes = await this.obterNegociacoesDaSemana();
+             
+                 return negociacoes.filter(negociacao => 
+                    !listaAtual.some(negociacaoExistente => 
+                   JSON.stringify(negociacao) == JSON.stringify(negociacaoExistente)));
+             }
+             catch (erro) {
+                 console.log(erro);
+                 throw new Error("Não foi possível importar as negociações");
+             }
+        }
+
     }
