@@ -1,16 +1,12 @@
 
-var ConnectionFactory = (function ()
-
-{
-
 const stores = ['negociacoes'];
 const version = 3;
 const dbName ='aluraframe';
 
-var connection = null;
-var close = null;
+let connection = null;
+let close = null;
 
-return class ConnectionFactory{
+export class ConnectionFactory{
 
      constructor(){
          throw new Error('Não é possivel criar instâncias de ConnectionFactory');
@@ -67,7 +63,6 @@ return class ConnectionFactory{
     }
 
 }
-})();
 
 
 
